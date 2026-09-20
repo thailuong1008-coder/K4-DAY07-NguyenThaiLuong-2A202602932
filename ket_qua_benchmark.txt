@@ -1,0 +1,87 @@
+================================================================================
+KẾT QUẢ BENCHMARK TRUY XUẤT (K4-L3B) — CHIẾN LƯỢC: FixedSizeChunker
+Tổng số tài liệu: 6 | Tổng số chunks: 59
+Embedding Backend: mock embeddings fallback
+================================================================================
+
+[Q1] Query: Thời hạn tối đa để gửi yêu cầu Trả hàng / Hoàn tiền đối với đơn hàng thực phẩm tươi sống trên Shopee là bao lâu?
+Filter: None
+Gold Doc: shopee-quy-dinh-tra-hang-hoan-tien
+Gold Answer: Trong vòng 24 giờ kể từ khi đơn hàng cập nhật trạng thái 'Giao hàng thành công' (trừ trường hợp lý do là 'Chưa nhận được hàng').
+Top-3 Kết quả truy xuất:
+  Top-1: doc_id=apple-pham-vi-bao-hanh-thiet-bi | score=0.2258 | status=[SAI DOC]
+    Nội dung: g hợp loại trừ không thuộc phạm vi bảo hành  Chế độ bảo hành của Apple không áp dụng trong các trường hợp sau: - Các bộ phận tiêu hao, chẳng hạn như p...
+  Top-2: doc_id=shopee-quy-dinh-nguoi-ban-xu-ly-khieu-nai | score=0.2006 | status=[SAI DOC]
+    Nội dung: hản hồi bắt buộc:** Người bán phải phản hồi yêu cầu (Chấp nhận hoàn tiền, Đề xuất hoàn tiền một phần hoặc Khiếu nại tới Shopee) trong vòng **02 ngày (...
+  Top-3: doc_id=xiaomi-chinh-sach-bao-hanh | score=0.1864 | status=[SAI DOC]
+    Nội dung: ảo hành dịch vụ là **30 ngày**. - Thiết bị phát sinh lỗi phần mềm sau các bản nâng cấp OTA chính thức của Xiaomi vẫn tiếp tục được hỗ trợ bảo hành bìn...
+Đánh giá: KHÔNG ĐẠT
+
+[Q2] Query: Theo chính sách của Thế Giới Di Động, nếu vi phạm cam kết bảo hành 15 ngày thì khách hàng được quyền lợi gì?
+Filter: None
+Gold Doc: thegioididong-chinh-sach-bao-hanh-doi-tra
+Gold Answer: Khách hàng được áp dụng phương thức 'Hư gì đổi nấy ngay và luôn' hoặc 'Hoàn tiền với mức phí giảm 50%'.
+Top-3 Kết quả truy xuất:
+  Top-1: doc_id=shopee-quy-dinh-tra-hang-hoan-tien | score=0.2134 | status=[SAI DOC]
+    Nội dung: g vòng **3 đến 5 ngày làm việc**.  ---  ## 3. Các lý do hợp lệ để gửi yêu cầu Trả hàng / Hoàn tiền  Người mua có thể tạo yêu cầu dựa trên các lý do sa...
+  Top-2: doc_id=xiaomi-chinh-sach-bao-hanh | score=0.1956 | status=[SAI DOC]
+    Nội dung: Products)** | **06 tháng** | Bao gồm nồi chiên không dầu, máy lọc không khí, quạt thông minh, camera an ninh... Không bảo hành vật tư tiêu hao. | | **...
+  Top-3: doc_id=shopee-quy-dinh-tra-hang-hoan-tien | score=0.1916 | status=[SAI DOC]
+    Nội dung: ười nhận, cho đến khi kiểm tra sản phẩm bên trong. - **Ảnh chụp chi tiết:** Chụp cận cảnh tem mác của đơn vị vận chuyển, chụp 6 mặt bao bì đóng gói và...
+Đánh giá: KHÔNG ĐẠT
+
+[Q3] Query: Thời hạn bảo hành tiêu chuẩn cho thân máy điện thoại thông minh Xiaomi tại Việt Nam là bao nhiêu tháng?
+Filter: None
+Gold Doc: xiaomi-chinh-sach-bao-hanh
+Gold Answer: 18 tháng kể từ ngày mua hàng đối với thân máy lỗi phần cứng do nhà sản xuất trong điều kiện sử dụng bình thường.
+Top-3 Kết quả truy xuất:
+  Top-1: doc_id=thegioididong-chinh-sach-bao-hanh-doi-tra | score=0.2130 | status=[SAI DOC]
+    Nội dung:  đi kèm: Thu phí theo giá bán lẻ niêm yết tối thiểu của phụ kiện trên website TGDĐ, tối đa không quá **5% giá trị hóa đơn**.   + Hàng khuyến mãi tặng ...
+  Top-2: doc_id=samsung-thong-tin-bao-hanh | score=0.2062 | status=[SAI DOC]
+    Nội dung: tại TTBH | | 6 | Pin sạc dự phòng Samsung | **06 tháng** | Đổi mới tại TTBH | | 7 | Tivi thông minh (Smart TV LED, QLED, OLED) | **24 tháng** | Sửa ch...
+  Top-3: doc_id=samsung-thong-tin-bao-hanh | score=0.1975 | status=[SAI DOC]
+    Nội dung: Máy giặt, Máy sấy quần áo | **24 tháng** (Động cơ Inverter: **10 - 20 năm**) | Sửa chữa tại nhà khách hàng | | 12 | Điều hòa nhiệt độ | **24 tháng** (...
+Đánh giá: KHÔNG ĐẠT
+
+[Q4] Query: Nếu ngày mua sản phẩm Apple trên hệ thống kiểm tra trực tuyến không chính xác thì khách hàng cần xuất trình giấy tờ gì để cập nhật?
+Filter: None
+Gold Doc: apple-pham-vi-bao-hanh-thiet-bi
+Gold Answer: Khách hàng cần cung cấp biên lai bán hàng gốc hoặc hóa đơn tài chính hợp lệ từ đại lý ủy quyền của Apple để cập nhật lại ngày mua chính xác.
+Top-3 Kết quả truy xuất:
+  Top-1: doc_id=apple-pham-vi-bao-hanh-thiet-bi | score=0.2610 | status=[ĐÚNG NGỮ CẢNH]
+    Nội dung: hế xác định:** Thông tin về phạm vi bảo hành bảo dưỡng hiển thị trên trang tra cứu dịch vụ trực tuyến của Apple dựa trên ngày mua hàng được ghi nhận k...
+  Top-2: doc_id=shopee-quy-dinh-tra-hang-hoan-tien | score=0.1986 | status=[SAI DOC]
+    Nội dung:  khiếu nại của Shopee:  | Loại đơn hàng | Thời hạn tối đa gửi yêu cầu | Mốc thời gian tính | |---|---|---| | **Đơn hàng thực phẩm tươi sống & đông lạn...
+  Top-3: doc_id=apple-pham-vi-bao-hanh-thiet-bi | score=0.1703 | status=[ĐÚNG DOC NHƯNG THIẾU KEYWORD]
+    Nội dung: được đăng ký trên tài khoản Apple ID. 2. **Bảo mật và Dữ liệu:**    + Khách hàng phải tự thực hiện sao lưu toàn bộ dữ liệu lên iCloud hoặc máy tính cá...
+Đánh giá: ĐẠT (Top-1 chuẩn)
+
+[Q5_unfiltered] Query: Thời hạn phản hồi yêu cầu khiếu nại trả hàng hoàn tiền là bao lâu?
+Filter: None
+Gold Doc: shopee-quy-dinh-nguoi-ban-xu-ly-khieu-nai
+Gold Answer: Người bán phải phản hồi trong vòng 02 ngày (48 giờ làm việc) kể từ khi tiếp nhận khiếu nại. (Chưa lọc audience)
+Top-3 Kết quả truy xuất:
+  Top-1: doc_id=thegioididong-chinh-sach-bao-hanh-doi-tra | score=0.4088 | status=[SAI DOC]
+    Nội dung: 20% giá trị hóa đơn** cộng với mức phí đổi trả theo tháng.  ### Phương thức 3: Hoàn tiền (Áp dụng cho cả sản phẩm lỗi và không lỗi) - **Tháng đầu tiên...
+  Top-2: doc_id=xiaomi-chinh-sach-bao-hanh | score=0.1924 | status=[SAI DOC]
+    Nội dung: c virus. - Sự cố bắt nguồn từ tín hiệu mạng viễn thông hoặc sự cố dịch vụ của nhà mạng di động.  ---  ## 5. Kênh liên hệ hỗ trợ khách hàng  - **Hotlin...
+  Top-3: doc_id=shopee-quy-dinh-tra-hang-hoan-tien | score=0.1904 | status=[SAI DOC]
+    Nội dung:  với sản phẩm nhận được có thể từ chối nhận hàng khi đồng kiểm hoặc gửi yêu cầu Trả hàng / Hoàn tiền. - **Đồng kiểm khi nhận hàng:** Đối với các đơn h...
+Đánh giá: KHÔNG ĐẠT
+
+[Q5_filtered] Query: Thời hạn phản hồi yêu cầu khiếu nại trả hàng hoàn tiền là bao lâu?
+Filter: {'audience': 'seller'}
+Gold Doc: shopee-quy-dinh-nguoi-ban-xu-ly-khieu-nai
+Gold Answer: Người bán phải phản hồi trong vòng 02 ngày (48 giờ làm việc) kể từ khi tiếp nhận khiếu nại. Quá hạn hệ thống Shopee sẽ tự động hoàn tiền cho Người mua.
+Top-3 Kết quả truy xuất:
+  Top-1: doc_id=shopee-quy-dinh-nguoi-ban-xu-ly-khieu-nai | score=0.0870 | status=[ĐÚNG NGỮ CẢNH]
+    Nội dung: # Quy định dành cho Người bán về xử lý khiếu nại Trả hàng và Hoàn tiền trên Shopee  Tài liệu hướng dẫn và quy định trách nhiệm, nghĩa vụ của Người bán...
+  Top-2: doc_id=shopee-quy-dinh-nguoi-ban-xu-ly-khieu-nai | score=0.0663 | status=[ĐÚNG NGỮ CẢNH]
+    Nội dung: hản hồi bắt buộc:** Người bán phải phản hồi yêu cầu (Chấp nhận hoàn tiền, Đề xuất hoàn tiền một phần hoặc Khiếu nại tới Shopee) trong vòng **02 ngày (...
+  Top-3: doc_id=shopee-quy-dinh-nguoi-ban-xu-ly-khieu-nai | score=0.0138 | status=[ĐÚNG NGỮ CẢNH]
+    Nội dung: ** Người bán có tỷ lệ đơn hàng trả hàng/hoàn tiền cao do lỗi Người bán có thể bị tính điểm phạt Sao Quả Tạ (Non-fulfilment Rate - NFR), dẫn đến việc b...
+Đánh giá: ĐẠT (Top-1 chuẩn)
+
+Tổng kết đánh giá 5 queries (bao gồm A/B test):
+- Top-1 chính xác tuyệt đối: 2/6
+- Top-3 có chứa thông tin trả lời: 2/6
