@@ -3,7 +3,7 @@
 **Họ tên:** Nguyễn Thái Lương  
 **MSSV:** 2A202602932  
 **Biến thể:** K4-L3B — Truy xuất Chính sách Thương mại Điện tử  
-**Nhóm:** Nhóm L3B  
+**Nhóm:** Chính Sách Bảo Hành & Khiếu Nại Sản Phẩm  
 **Ngày:** 20/09/2026  
 
 ---

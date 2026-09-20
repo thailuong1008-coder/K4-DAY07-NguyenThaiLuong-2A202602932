@@ -1,9 +1,20 @@
 # Báo Cáo Nhóm — Lab 7: Embedding & Vector Store
 
 **Biến thể:** K4-L3B — Truy xuất Chính sách Thương mại Điện tử  
-**Nhóm:** Nhóm L3B  
-**Thành viên:** Nguyễn Thái Lương (MSSV: 2A202602932)  
+**Nhóm:** Chính Sách Bảo Hành & Khiếu Nại Sản Phẩm  
+**Thành viên:** Nguyễn Thái Lương, Nguyễn Xuân Trường, Trần Cao Quốc Định, Nguyễn Mạnh Tiến  
 **Ngày:** 20/09/2026  
+
+| Thành viên | Vai trò | Nhiệm vụ |
+|---|---|---|
+| Nguyễn Thái Lương | Data Lead | Thu thập 5-10 tài liệu, metadata và QA corpus |
+| Nguyễn Xuân Trường | Code Lead | Hoàn thiện `src/`, kiểm thử và pipeline benchmark |
+| Trần Cao Quốc Định | Strategy Lead | Soạn 5 query, gold answer và metadata filtering |
+| Nguyễn Mạnh Tiến | Benchmark Lead | Chạy retrieval, so sánh và phân tích lỗi |
+
+> **Nộp 1 bản / nhóm.** Phần cá nhân (hướng tiếp cận, kết quả riêng, dự đoán…) mỗi thành viên nộp riêng trong `REPORT_CANHAN.md`. Chi tiết thang điểm: `docs/SCORING.md`.
+
+**Tổng điểm phần nhóm: 40** = Lựa chọn tài liệu (10) + Thiết kế chiến lược (15) + Chất lượng truy xuất (10) + Thuyết trình (5).
 
 ---
 
@@ -67,33 +78,67 @@ Kết quả chạy `ChunkingStrategyComparator().compare()` trên 3 tài liệu 
 
 ### Chiến lược của từng thành viên
 
-**Thành viên 1 — Nguyễn Thái Lương**
-- **Loại chiến lược:** FixedSizeChunker (`fixed_size`, `chunk_size=500`, `overlap=50`)
-- **Mô tả & lý do chọn cho chủ đề này:** Chiến lược sử dụng cửa sổ trượt (sliding window) với độ dài cố định 500 ký tự và độ gối đầu 50 ký tự. Cơ chế overlap giúp đảm bảo các câu số liệu, thời hạn quan trọng ở ranh giới giữa 2 chunk không bị mất liên kết ngữ cảnh.
-- **Code áp dụng:**
+> Mỗi thành viên thử nghiệm một chiến lược khác nhau trên cùng bộ tài liệu chính sách của nhóm để so sánh hiệu năng.
+
+**Thành viên 1 — Nguyễn Thái Lương (Data Lead)**
+- **Loại chiến lược:** Heading/section hoặc recursive fallback
+- **Mô tả & lý do chọn cho chủ đề này:** Chính sách thường được chia theo điều khoản và tiêu đề. Giữ heading trong mỗi chunk giúp không mất ngữ cảnh về điều kiện bảo hành hoặc quy trình khiếu nại.
+- **Code snippet (nếu custom):**
 ```python
-chunker = FixedSizeChunker(chunk_size=500, overlap=50)
-chunks = chunker.chunk(document_content)
+import re
+
+def chunk_by_heading(text: str, chunk_size: int = 500) -> list[str]:
+	sections = re.split(r"(?=^#{1,3}\s+)", text, flags=re.MULTILINE)
+	return [section.strip() for section in sections if section.strip()]
 ```
 
-**Thành viên 2 — [Tên Thành viên 2]**
-- **Loại chiến lược:** RecursiveChunker (`recursive`, `chunk_size=500`, separators=`["\n\n", "\n", ". ", " ", ""]`)
-- **Mô tả & lý do chọn:** Chia nhỏ văn bản đệ quy dựa trên cấu trúc tự nhiên của văn bản pháp lý/chính sách. Tách trước theo đoạn văn và tiêu đề, đảm bảo mỗi chunk là một điều khoản hoàn chỉnh.
+**Thành viên 2 — Nguyễn Xuân Trường (Code Lead)**
+- **Loại chiến lược:** `RecursiveChunker`, `chunk_size=500`
+- **Mô tả & lý do chọn:** Đây là chiến lược của Code Lead để làm baseline có ranh giới ngữ nghĩa tốt hơn cắt ký tự thuần túy. Thuật toán ưu tiên paragraph, newline, câu và khoảng trắng, đồng thời gom các mảnh nhỏ liền kề.
+- **Code snippet (nếu custom):**
+```python
+from src import RecursiveChunker
 
-**Thành viên 3 — [Tên Thành viên 3]**
-- **Loại chiến lược:** Custom Heading-based Chunker (Chunker theo tiêu đề mục)
-- **Mô tả & lý do chọn:** Văn bản chính sách có phân cấp rõ ràng theo các tiêu đề `##` và `###`. Chiến lược này cắt theo từng điều khoản và đính kèm lại tiêu đề mục lớn vào đầu mỗi chunk con để không bị mất ngữ cảnh chủ đề.
+chunker = RecursiveChunker(chunk_size=500)
+chunks = chunker.chunk(policy_text)
+```
+
+**Thành viên 3 — Trần Cao Quốc Định (Strategy Lead)**
+- **Loại chiến lược:** `SentenceChunker`
+- **Mô tả & lý do chọn:** Phù hợp với các câu hỏi về điều kiện và thời hạn vì mỗi chunk giữ được các câu hoàn chỉnh. Tham số cần được điều chỉnh để không tách điều kiện khỏi ngoại lệ.
+- **Code snippet (nếu custom):**
+```python
+from src import SentenceChunker
+
+chunker = SentenceChunker(max_sentences_per_chunk=3)
+chunks = chunker.chunk(policy_text)
+```
+
+**Thành viên 4 — Nguyễn Mạnh Tiến (Benchmark Lead)**
+- **Loại chiến lược:** Section-based, giữ heading và dùng RecursiveChunker cho section dài
+- **Mô tả & lý do chọn:** Chính sách có cấu trúc mục rõ ràng, nên heading được giữ trong từng chunk để bảo toàn ngữ cảnh. Section dài được tách tiếp; kết quả bảo toàn được ngữ cảnh cấu trúc văn bản.
+- **Code snippet (nếu custom):**
+```python
+def section_chunks(text: str, chunk_size: int = 500) -> list[str]:
+	sections = re.split(r"(?=^#{1,3}\s+)", text, flags=re.MULTILINE)
+	chunks = []
+	for section in sections:
+		if section.strip():
+			chunks.extend(RecursiveChunker(chunk_size).chunk(section.strip()))
+	return chunks
+```
 
 ### So Sánh Giữa Các Thành Viên
 
 | Thành viên | Chiến lược (Strategy) | Điểm truy xuất (/10) | Điểm mạnh | Điểm yếu |
 |---|---|---|---|---|
-| Nguyễn Thái Lương | FixedSizeChunker (overlap=50) | 8/10 | Đơn giản, độ dài chunk đồng đều, overlap giúp không mất số liệu ở mép chunk. | Đôi khi cắt ngang giữa dòng bảng thông số hoặc danh sách liệt kê. |
-| Thành viên 2 | RecursiveChunker | 9/10 | Giữ trọn vẹn ngữ nghĩa từng đoạn văn và danh mục điều khoản. | Kích thước các chunk có độ lệch tương đối tùy độ dài đoạn văn. |
-| Thành viên 3 | HeadingChunker | 9/10 | Ngữ cảnh được neo chính xác theo tên điều khoản quy định. | Phải xử lý phức tạp khi một mục quá dài vượt quá chunk_size. |
+| Nguyễn Thái Lương | Heading/section (hoặc FixedSize) | 8/10 | Giữ cấu trúc điều khoản, bảo toàn ngữ cảnh theo từng mục quy định. | Section dài cần fallback nếu vượt ngưỡng chunk_size. |
+| Nguyễn Xuân Trường | RecursiveChunker (500) | 9/10 | Ranh giới ngữ nghĩa tự nhiên, cân bằng tốt giữa đoạn và câu. | Kích thước chunk chênh lệch tùy độ dài đoạn văn. |
+| Trần Cao Quốc Định | SentenceChunker (max 3 câu) | 8/10 | Giữ câu hoàn chỉnh, tránh ngắt quãng câu điều kiện. | Độ dài chunk không đều, gạch đầu dòng ngắn bị gom chung. |
+| Nguyễn Mạnh Tiến | Section-based + Recursive | 9/10 | Bảo toàn heading tối đa, trích xuất chính xác theo điều khoản. | Tạo số lượng chunk lớn nếu tài liệu nhiều phân mục nhỏ. |
 
 **Chiến lược nào tốt nhất cho chủ đề này? Tại sao?**
-> Chiến lược **RecursiveChunker** và **Heading-based Chunker** thể hiện ưu thế vượt trội đối với văn bản chính sách thương mại điện tử. Do tài liệu được chia theo từng điều khoản, tiêu mục (`1. Điều kiện`, `2. Thời hạn`, `3. Ngoại lệ`), việc phân tách theo heading và đoạn văn giúp mỗi chunk chứa trọn vẹn một quy định cụ thể, giúp vector embedding biểu diễn ngữ nghĩa chính xác hơn nhiều so với việc cắt cơ học theo số lượng ký tự.
+> Chiến lược **RecursiveChunker** và **Section-based / Heading-based Chunker** thể hiện ưu thế vượt trội đối với văn bản chính sách thương mại điện tử. Do tài liệu được chia theo từng điều khoản, tiêu mục (`1. Điều kiện`, `2. Thời hạn`, `3. Ngoại lệ`), việc phân tách theo heading và đoạn văn giúp mỗi chunk chứa trọn vẹn một quy định cụ thể, giúp vector embedding biểu diễn ngữ nghĩa chính xác hơn nhiều so với việc cắt cơ học theo số lượng ký tự.
 
 ---
 
